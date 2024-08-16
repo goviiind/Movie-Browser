@@ -5,7 +5,7 @@ import { Radio } from "antd";
 const MovieFilter = ({ movieData, handleGetSearchData }) => {
   const onChange = (e, type) => {
     let newData = [];
-    if (type == "month") {
+    if (type === "month") {
       let monthRange = e.split("-");
 
       for (let i = 0; i < movieData.length; i++) {
@@ -15,16 +15,16 @@ const MovieFilter = ({ movieData, handleGetSearchData }) => {
         }
       }
     }
-    if (type == "lang") {
+    if (type === "lang") {
       newData = movieData.filter(
-        (movie) => movie.original_language == e.target.value
+        (movie) => movie.original_language === e.target.value
       );
     }
 
-    if (type == "rating") {
+    if (type === "rating") {
       for (let i = 0; i < movieData.length; i++) {
         if (
-          Math.round(movieData[i].vote_average) == Math.round(e) ||
+          Math.round(movieData[i].vote_average) === Math.round(e) ||
           Math.round(movieData[i].vote_average) > Math.round(e)
         ) {
           newData.push(movieData[i]);

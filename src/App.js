@@ -11,31 +11,29 @@ function App() {
   const [searchedMovies, setSearchedMovies] = useState([]);
 
   useEffect(() => {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: Access_Token,
+      },
+    };
+    const getData = async () => {
+      try {
+        const response = await fetch(
+          `${API_ROUTE}/now_playing?language=en-US&page=1'`,
+          options
+        );
+        const res = await response.json();
+        if (res) {
+          setMovieData(res.results);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getData();
   }, []);
-
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: Access_Token,
-    },
-  };
-
-  const getData = async () => {
-    try {
-      const response = await fetch(
-        `${API_ROUTE}/now_playing?language=en-US&page=1'`,
-        options
-      );
-      const res = await response.json();
-      if (res) {
-        setMovieData(res.results);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const getFavouriteMovie = (movie) => {
     setFavouriteMovies([...favouriteMovies, movie]);
